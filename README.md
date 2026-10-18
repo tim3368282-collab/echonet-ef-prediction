@@ -62,7 +62,7 @@ DataLoader Workers	4
 
 最佳驗證集結果出現在 Epoch 8，驗證損失為 34.2846，並產生對應的最佳模型權重檔案 best.pt。
 ```text
-驗證集評估結果
+驗證集評估結果(log.csv)
 評估指標	結果
 最佳驗證損失	34.2846
 決定係數（R²）	0.769
@@ -87,12 +87,9 @@ RMSE（均方根誤差）： 衡量預測誤差，並對較大的誤差給予更
 ```text
 echonet-ef-prediction/
 ├── README.md
-├── notebooks/
-│   └── echonet_training.ipynb
-├── results/
-│   ├── metrics.csv
-│   └── actual_vs_predicted.png
-└── CITATION.md
+├── echonet_training.ipynb
+├── result.csv
+
 ```
 
 上述為預計整理的專案架構。各項結果檔案應在實際產生並確認內容後，再加入 Repository。
