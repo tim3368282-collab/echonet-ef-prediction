@@ -20,13 +20,13 @@ Cardiac Ejection Fraction Prediction Using Deep Learning
 三、資料集介紹
 
 EchoNet-Dynamic
-
+```text
 資料集名稱：EchoNet-Dynamic
 官方網站：https://echonet.github.io/dynamic/
 原始程式碼：https://github.com/echonet/dynamic
 輸入資料：心臟超音波影片
 預測目標：左心室射出分率（EF）
-
+```
 本專案使用 Kaggle 上提供的 EchoNet-Dynamic 資料集，依照原始資料集及程式碼的相關授權與使用條款進行實驗。
 
 四、模型架構
@@ -40,6 +40,7 @@ R(2+1)D 是一種三維卷積神經網路架構，將影片的時空卷積運算
 訓練時使用預訓練權重初始化模型，以作為後續模型訓練的起點。
 
 五、訓練環境與參數
+```text
 項目	設定
 執行環境	Kaggle Notebook
 運算設備	GPU
@@ -54,12 +55,13 @@ Weight Decay	0.0001
 Batch Size	20
 隨機種子	0
 DataLoader Workers	4
+```
 六、訓練結果與驗證分析
 
 本專案已完成 10 個 Epoch 的訓練，並根據驗證集的損失值選出最佳模型。
 
 最佳驗證集結果出現在 Epoch 8，驗證損失為 34.2846，並產生對應的最佳模型權重檔案 best.pt。
-
+```text
 驗證集評估結果
 評估指標	結果
 最佳驗證損失	34.2846
@@ -70,7 +72,7 @@ DataLoader Workers	4
 R²（決定係數）： 用來衡量模型對驗證集 EF 數值變異的解釋程度。本次結果為 0.769。
 MAE（平均絕對誤差）： 衡量預測值與實際值之間的平均絕對差距。本次結果為 4.38。
 RMSE（均方根誤差）： 衡量預測誤差，並對較大的誤差給予更高權重。本次結果為 5.92。
-
+```
 若 EF 標籤以百分比數值表示，MAE 4.38 可解讀為平均絕對誤差約 4.38 個百分點。
 
 初步結果分析
@@ -82,6 +84,7 @@ RMSE（均方根誤差）： 衡量預測誤差，並對較大的誤差給予更
 目前結果屬於驗證階段的初步成果，仍需進一步確認獨立測試集的評估結果，以分析模型對未參與訓練資料的泛化能力。
 
 七、專案檔案架構
+```text
 echonet-ef-prediction/
 ├── README.md
 ├── notebooks/
@@ -90,7 +93,7 @@ echonet-ef-prediction/
 │   ├── metrics.csv
 │   └── actual_vs_predicted.png
 └── CITATION.md
-
+```
 
 上述為預計整理的專案架構。各項結果檔案應在實際產生並確認內容後，再加入 Repository。
 
