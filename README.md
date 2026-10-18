@@ -2,70 +2,86 @@
 Cardiac Ejection Fraction Prediction from Echocardiography Videos using R(2+1)D-18
 Cardiac Ejection Fraction Prediction Using Deep Learning
 
-以深度學習進行心臟超音波影片之射出分率（EF）預測
+利用深度學習預測心臟超音波影片之射出分率（EF）
+一、專案介紹
 
-1. Project Overview
+本專案旨在運用深度學習技術，從心臟超音波影片預測左心室射出分率（Ejection Fraction, EF），探索人工智慧在醫學影像分析與心臟功能評估上的應用。
 
-本專案旨在學習如何運用深度學習模型，從心臟超音波影片預測左心室射出分率（Ejection Fraction, EF）。
+本專案使用公開的 EchoNet-Dynamic 資料集，採用 R(2+1)D-18 影片深度學習模型，學習心臟超音波影片中的空間與時間特徵，並建立 EF 數值預測流程。
 
-使用公開的 EchoNet-Dynamic 資料集，並以 R(2+1)D-18 影片模型進行訓練，探索深度學習在醫學影像分析與心臟功能評估上的應用。
+模型訓練於 Kaggle Notebook 環境中執行，使用 GPU 加速訓練。目前已完成 10 個 Epoch 的模型訓練，並產生最佳模型權重檔案 best.pt。
 
-本專案於 Kaggle Notebook 環境中執行，使用 GPU 加速模型訓練。
-
-2. Project Objectives
-學習影片深度學習模型的訓練流程。
-理解 R(2+1)D-18 模型在時空特徵擷取上的應用。
-建立由心臟超音波影片預測 EF 數值的流程。
-透過模型訓練與測試結果，分析預測誤差及模型限制。
-3. Dataset
+二、專案目標
+學習影片深度學習模型的訓練流程與基本原理。
+理解 R(2+1)D-18 模型在影片時空特徵擷取上的應用。
+建立從心臟超音波影片預測 EF 數值的深度學習流程。
+透過訓練與驗證結果，分析模型的預測表現及限制。
+將模型訓練、實驗紀錄與評估結果整理成可供檢視的專案。
+三、資料集介紹
 
 EchoNet-Dynamic
-```text
-Dataset: EchoNet-Dynamic
-Original repository: echonet/dynamic
-Task: Ejection Fraction (EF) prediction
-Input: Echocardiography video clips
-Output: Predicted EF value
-```
-本專案使用 Kaggle 上提供的 EchoNet-Dynamic 資料集。資料集與原始程式碼的使用，依其各自的授權及使用條款辦理。
 
-4. Model and Training Configuration
-```text
-Parameter	Configuration
-Model architecture	R(2+1)D-18
-Task	EF regression
-Pretrained weights	Enabled
-Training epochs	10
-Learning rate	0.0001
-Weight decay	0.0001
-Frames	32
-Frame sampling period	2
-Batch size	20
-Random seed	0
-Training environment	Kaggle GPU
-```
+資料集名稱：EchoNet-Dynamic
+官方網站：https://echonet.github.io/dynamic/
+原始程式碼：https://github.com/echonet/dynamic
+輸入資料：心臟超音波影片
+預測目標：左心室射出分率（EF）
 
-5. Training Process
+本專案使用 Kaggle 上提供的 EchoNet-Dynamic 資料集，依照原始資料集及程式碼的相關授權與使用條款進行實驗。
 
-模型使用公開的 EchoNet-Dynamic 專案程式碼進行訓練，並依照本專案設定調整訓練參數。
+四、模型架構
 
-目前已完成 10 個 Epoch 的訓練，並產生 best.pt 模型權重檔案。
+本專案使用 R(2+1)D-18 作為影片分析模型。
 
-完整的測試流程及模型預測表現，仍需依實際執行結果進行整理。
+R(2+1)D 是一種三維卷積神經網路架構，將影片的時空卷積運算分解為空間卷積與時間卷積，以學習影片中的影像特徵及隨時間變化的資訊。
 
-6. Experimental Results
+在本專案中，模型以心臟超音波影片作為輸入，學習影片特徵與 EF 數值之間的關係，並執行連續數值預測任務。
 
-訓練完成後，將整理以下評估結果：
-```text
-Mean Absolute Error (MAE)
-Root Mean Squared Error (RMSE)
-Actual vs. Predicted EF scatter plot
-Training and validation performance
-```
-目前尚未在此列出最終評估數值，以避免將訓練過程中的數值誤認為測試集結果。
+訓練時使用預訓練權重初始化模型，以作為後續模型訓練的起點。
 
-7. Repository Structure
-```text
+五、訓練環境與參數
+項目	設定
+執行環境	Kaggle Notebook
+運算設備	GPU
+模型架構	R(2+1)D-18
+預測任務	EF 數值預測
+預訓練權重	使用
+訓練 Epoch 數	10
+初始學習率	0.0001
+Weight Decay	0.0001
+影片影格數	32
+影格取樣間隔	2
+Batch Size	20
+隨機種子	0
+DataLoader Workers	4
+六、訓練結果與驗證分析
+
+本專案已完成 10 個 Epoch 的訓練，並根據驗證集的損失值選出最佳模型。
+
+最佳驗證集結果出現在 Epoch 8，驗證損失為 34.2846，並產生對應的最佳模型權重檔案 best.pt。
+
+驗證集評估結果
+評估指標	結果
+最佳驗證損失	34.2846
+決定係數（R²）	0.769
+平均絕對誤差（MAE）	4.38
+均方根誤差（RMSE）	5.92
+評估指標說明
+R²（決定係數）： 用來衡量模型對驗證集 EF 數值變異的解釋程度。本次結果為 0.769。
+MAE（平均絕對誤差）： 衡量預測值與實際值之間的平均絕對差距。本次結果為 4.38。
+RMSE（均方根誤差）： 衡量預測誤差，並對較大的誤差給予更高權重。本次結果為 5.92。
+
+若 EF 標籤以百分比數值表示，MAE 4.38 可解讀為平均絕對誤差約 4.38 個百分點。
+
+初步結果分析
+
+從訓練紀錄可觀察到，訓練集損失隨著 Epoch 增加而逐漸下降，顯示模型在訓練資料上的學習表現持續改善。
+
+然而，驗證集損失並未隨訓練次數持續下降，而是在不同 Epoch 之間有所波動。因此，本專案採用驗證集損失最低的 Epoch 8 作為最佳模型選擇依據，而非直接使用最後一個 Epoch 的模型。
+
+目前結果屬於驗證階段的初步成果，仍需進一步確認獨立測試集的評估結果，以分析模型對未參與訓練資料的泛化能力。
+
+七、專案檔案架構
 echonet-ef-prediction/
 ├── README.md
 ├── notebooks/
@@ -74,40 +90,37 @@ echonet-ef-prediction/
 │   ├── metrics.csv
 │   └── actual_vs_predicted.png
 └── CITATION.md
-```text
 
-以上為預計整理的專案結構。尚未建立或產生的檔案，會在後續完成實驗分析後加入。
 
-8. Reproducibility
+上述為預計整理的專案架構。各項結果檔案應在實際產生並確認內容後，再加入 Repository。
 
-訓練環境為 Kaggle Notebook，使用 GPU 執行模型訓練。
+八、專案執行流程
+準備 EchoNet-Dynamic 資料集及執行環境。
+設定模型架構、訓練參數及預訓練權重。
+使用 Kaggle GPU 執行模型訓練。
+根據驗證集損失選擇最佳模型。
+使用最佳模型進行後續評估。
+整理評估指標及實驗結果，分析模型的預測表現。
+九、原始研究與程式碼來源
 
-主要訓練參數包含：
-```text
-Model: r2plus1d_18
-Task: EF
-Epochs: 10
-Learning rate: 1e-4
-Batch size: 20
-```
-實際執行環境、套件版本、資料集來源及程式碼版本，將隨專案整理補充。
+本專案參考並使用 EchoNet-Dynamic 開源專案所提供的程式碼、研究方法及公開資料集。
 
-9. Attribution
+官方網站：https://echonet.github.io/dynamic/
+原始 GitHub：https://github.com/echonet/dynamic
 
-本專案參考並使用 EchoNet-Dynamic 開源專案所提供的程式碼與研究成果。
+原始研究成果、程式碼與資料集均依其相關授權及使用條款使用。本專案的實驗設定、執行紀錄與後續分析，將與原始專案既有成果明確區分。
 
-Original repository: https://github.com/echonet/dynamic
+十、研究限制
+本專案目前以公開資料集進行模型訓練與驗證，結果不代表模型已具備臨床診斷能力。
+驗證集評估結果不能直接取代獨立測試集的最終評估。
+模型表現可能受到資料分布、影像品質、訓練參數及模型架構等因素影響。
+模型尚需進一步評估其泛化能力與適用範圍。
 
-原始作者、論文、軟體授權及資料集來源均應依照各自的規定標註。本專案的訓練與分析成果，將與原始專案的既有成果明確區分。
+本專案僅供人工智慧、深度學習及醫學影像分析之學習與研究用途，不應直接作為臨床診斷或醫療決策依據。
 
-10. Limitations
-
-本專案為深度學習與醫學影像分析的學習實作，僅針對公開資料集進行實驗。
-
-目前的訓練結果不代表模型已具備臨床診斷能力，也不能直接取代專業醫療人員的判讀。
-
-11. Future Work
-完成測試集評估並整理 MAE 與 RMSE。
-視需要比較不同訓練參數對預測結果的影響。
-加入預測結果視覺化與誤差分析。
-改善程式碼組織、環境設定與實驗重現性。
+十一、未來改進方向
+完成獨立測試集評估，整理最終 MAE、RMSE 與 R²。
+繪製實際 EF 與預測 EF 的比較圖，分析預測誤差。
+比較不同訓練參數或模型設定對預測結果的影響。
+補充實驗環境、套件版本及完整執行紀錄，以提升可重現性。
+持續改善程式碼組織與專案文件，建立更完整的深度學習實驗流程。
