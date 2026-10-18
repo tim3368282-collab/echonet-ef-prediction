@@ -20,16 +20,17 @@ Cardiac Ejection Fraction Prediction Using Deep Learning
 3. Dataset
 
 EchoNet-Dynamic
-
+```text
 Dataset: EchoNet-Dynamic
 Original repository: echonet/dynamic
 Task: Ejection Fraction (EF) prediction
 Input: Echocardiography video clips
 Output: Predicted EF value
-
+```
 本專案使用 Kaggle 上提供的 EchoNet-Dynamic 資料集。資料集與原始程式碼的使用，依其各自的授權及使用條款辦理。
 
 4. Model and Training Configuration
+```text
 Parameter	Configuration
 Model architecture	R(2+1)D-18
 Task	EF regression
@@ -42,6 +43,8 @@ Frame sampling period	2
 Batch size	20
 Random seed	0
 Training environment	Kaggle GPU
+```
+
 5. Training Process
 
 模型使用公開的 EchoNet-Dynamic 專案程式碼進行訓練，並依照本專案設定調整訓練參數。
@@ -53,15 +56,16 @@ Training environment	Kaggle GPU
 6. Experimental Results
 
 訓練完成後，將整理以下評估結果：
-
+```text
 Mean Absolute Error (MAE)
 Root Mean Squared Error (RMSE)
 Actual vs. Predicted EF scatter plot
 Training and validation performance
-
+```
 目前尚未在此列出最終評估數值，以避免將訓練過程中的數值誤認為測試集結果。
 
 7. Repository Structure
+```text
 echonet-ef-prediction/
 ├── README.md
 ├── notebooks/
@@ -70,7 +74,7 @@ echonet-ef-prediction/
 │   ├── metrics.csv
 │   └── actual_vs_predicted.png
 └── CITATION.md
-
+```text
 
 以上為預計整理的專案結構。尚未建立或產生的檔案，會在後續完成實驗分析後加入。
 
@@ -79,13 +83,13 @@ echonet-ef-prediction/
 訓練環境為 Kaggle Notebook，使用 GPU 執行模型訓練。
 
 主要訓練參數包含：
-
+```text
 Model: r2plus1d_18
 Task: EF
 Epochs: 10
 Learning rate: 1e-4
 Batch size: 20
-
+```
 實際執行環境、套件版本、資料集來源及程式碼版本，將隨專案整理補充。
 
 9. Attribution
